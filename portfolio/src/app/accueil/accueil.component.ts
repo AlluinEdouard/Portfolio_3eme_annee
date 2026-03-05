@@ -49,7 +49,7 @@ export class AccueilComponent implements OnInit, AfterViewInit, OnDestroy {
   stats = [
     { value: '3', label: 'Ans de\nformation', suffix: '+' },
     { value: '2', label: 'Expériences\nprofessionnelles', suffix: '' },
-    { value: '4', label: 'Projets\nréalisés', suffix: '+' },
+    { value: '20', label: 'Projets\nréalisés', suffix: '+' },
   ];
 
   private ctx!: CanvasRenderingContext2D;

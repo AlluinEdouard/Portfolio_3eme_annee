@@ -1,0 +1,237 @@
+<section id="diplomes" class="form" #section>
+
+  <!-- Background deco -->
+  <div class="form__bg">
+    <div class="form__bg-orb form__bg-orb--1"></div>
+    <div class="form__bg-orb form__bg-orb--2"></div>
+    <div class="form__bg-grid"></div>
+  </div>
+
+  <div class="form__container">
+
+    <!-- Header -->
+    <div class="form__header">
+      <p class="form__eyebrow">
+        <span class="eyebrow__line"></span>
+        04 — Formations
+      </p>
+      <h2 class="form__title">Diplômes &amp; Formations</h2>
+      <p class="form__subtitle">
+        Un parcours académique qui allie rigueur technique en informatique
+        et ouverture vers les sciences de gestion.
+      </p>
+    </div>
+
+    <!-- Main content -->
+    <div class="form__grid">
+
+      <!-- Left col : diplômes -->
+      <div class="form__diplomes">
+
+        <!-- Diplôme 1 : BUT Informatique -->
+        <div class="diplome-card diplome-card--active" #diplomeCard>
+
+          <div class="diplome-card__year-col">
+            <span class="diplome-card__year-start">2023</span>
+            <div class="diplome-card__year-bar">
+              <div class="diplome-card__year-fill"></div>
+            </div>
+            <span class="diplome-card__year-end">2026</span>
+          </div>
+
+          <div class="diplome-card__body">
+
+            <div class="diplome-card__top">
+              <span class="diplome-card__badge diplome-card__badge--current">En cours</span>
+              <span class="diplome-card__type">Bachelor Universitaire de Technologie</span>
+            </div>
+
+            <h3 class="diplome-card__title">BUT Informatique</h3>
+            <p class="diplome-card__school">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              IUT du Littoral Côte-d'Opale
+            </p>
+
+            <p class="diplome-card__desc">
+              Formation technologique pluridisciplinaire couvrant le développement
+              logiciel, les bases de données, les réseaux et la gestion de projets.
+              Approche par projets concrets et mise en situation professionnelle.
+            </p>
+
+            <div class="diplome-card__modules">
+              <span class="module-tag">Dev Web</span>
+              <span class="module-tag">BDD &amp; SQL</span>
+              <span class="module-tag">Python &amp; IA</span>
+              <span class="module-tag">Réseaux</span>
+              <span class="module-tag">Gestion de projet</span>
+              <span class="module-tag">Angular</span>
+            </div>
+
+          </div>
+
+          <!-- Deco number -->
+          <div class="diplome-card__deco">01</div>
+
+        </div>
+
+        <!-- Diplôme 2 : Baccalauréat -->
+        <div class="diplome-card" #diplomeCard>
+
+          <div class="diplome-card__year-col">
+            <span class="diplome-card__year-start">2020</span>
+            <div class="diplome-card__year-bar">
+              <div class="diplome-card__year-fill"></div>
+            </div>
+            <span class="diplome-card__year-end">2023</span>
+          </div>
+
+          <div class="diplome-card__body">
+
+            <div class="diplome-card__top">
+              <span class="diplome-card__badge diplome-card__badge--obtained">Obtenu</span>
+              <span class="diplome-card__type">Baccalauréat Technologique</span>
+            </div>
+
+            <h3 class="diplome-card__title">STMG</h3>
+            <p class="diplome-card__school">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Lycée Pierre de Coubertin
+            </p>
+
+            <p class="diplome-card__desc">
+              Baccalauréat Sciences et Technologies du Management et de la Gestion,
+              spécialité Gestion &amp; Finance. Socle économique et organisationnel
+              complétant ma culture technique.
+            </p>
+
+            <div class="diplome-card__modules">
+              <span class="module-tag module-tag--alt">Gestion &amp; Finance</span>
+              <span class="module-tag module-tag--alt">Management</span>
+              <span class="module-tag module-tag--alt">Économie</span>
+              <span class="module-tag module-tag--alt">Droit</span>
+            </div>
+
+          </div>
+
+          <!-- Deco number -->
+          <div class="diplome-card__deco">02</div>
+
+        </div>
+
+      </div>
+
+      <!-- Right col : infos complémentaires -->
+      <div class="form__aside">
+
+        <!-- Carte : Langues -->
+        <div class="aside-card aside-card--langues" #asideCard>
+          <div class="aside-card__header">
+            <span class="aside-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+              </svg>
+            </span>
+            <h4 class="aside-card__title">Langues</h4>
+          </div>
+
+          <div class="aside-card__content">
+            <div class="langue-item">
+              <div class="langue-item__top">
+                <span class="langue-item__name">Anglais</span>
+                <span class="langue-item__level">B1</span>
+              </div>
+              <div class="langue-bar">
+                <div class="langue-bar__fill langue-bar__fill--b1"></div>
+              </div>
+              <span class="langue-item__desc">Intermédiaire — Lecture technique, échanges professionnels</span>
+            </div>
+
+            <div class="langue-item">
+              <div class="langue-item__top">
+                <span class="langue-item__name">Espagnol</span>
+                <span class="langue-item__level">A2</span>
+              </div>
+              <div class="langue-bar">
+                <div class="langue-bar__fill langue-bar__fill--a2"></div>
+              </div>
+              <span class="langue-item__desc">Élémentaire — Notions de base</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte : Formation en cours -->
+        <div class="aside-card aside-card--escen" #asideCard>
+          <div class="aside-card__header">
+            <span class="aside-card__icon aside-card__icon--gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+            </span>
+            <h4 class="aside-card__title">Réorientation</h4>
+          </div>
+
+          <div class="aside-card__content">
+            <div class="escen-info">
+              <span class="escen-info__label">École visée</span>
+              <span class="escen-info__value">ESCEN</span>
+            </div>
+            <div class="escen-info">
+              <span class="escen-info__label">Domaine</span>
+              <span class="escen-info__value">Commerce B2B — Business Developer IT</span>
+            </div>
+            <div class="escen-info">
+              <span class="escen-info__label">Objectif</span>
+              <span class="escen-info__value">Alternance 2025</span>
+            </div>
+            <p class="escen-desc">
+              Fort de ma culture tech (SaaS, data, IA), je me réoriente vers le
+              commerce pour devenir Business Developer IT — profil technico-commercial
+              rare et recherché.
+            </p>
+          </div>
+
+          <div class="aside-card__glow"></div>
+        </div>
+
+        <!-- Carte : Atouts -->
+        <div class="aside-card aside-card--permis" #asideCard>
+          <div class="aside-card__header">
+            <span class="aside-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+              </svg>
+            </span>
+            <h4 class="aside-card__title">Informations</h4>
+          </div>
+
+          <div class="aside-card__content">
+            <div class="info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path d="M13 17H9m-2 0H3v-4a1 1 0 011-1h9V5a1 1 0 011-1h2l3 4.5V17h-2.5"/>
+              </svg>
+              <span>Permis B</span>
+            </div>
+            <div class="info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Né le 22/08/2005</span>
+            </div>
+            <div class="info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Calais, Hauts-de-France</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,509 @@
+@use 'variables' as *;
+
+.exp {
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  background: $color-bg;
+
+  // ── Background ────────────────────────────────────
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+
+    &--1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba($color-gold, 0.05) 0%, transparent 70%);
+      top: 10%; right: -150px;
+    }
+    &--2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124, 163, 196, 0.06) 0%, transparent 70%);
+      bottom: 0; left: -100px;
+    }
+  }
+
+  &__bg-lines {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba($color-gold, 0.02) 1px, transparent 1px);
+    background-size: 100% 80px;
+  }
+
+  // ── Container ─────────────────────────────────────
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  // ── Header ────────────────────────────────────────
+  &__header {
+    max-width: 600px;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+    opacity: 0;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 800;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.5rem 0 0;
+    opacity: 0;
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0.75rem 0 0;
+    opacity: 0;
+  }
+
+  // ── Timeline ──────────────────────────────────────
+  &__timeline {
+    position: relative;
+    display: grid;
+    // 3 colonnes : carte-gauche | axe central | carte-droite
+    grid-template-columns: 1fr 60px 1fr;
+    grid-template-rows: auto;
+    row-gap: 3rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 40px 1fr;
+    }
+  }
+
+  // La ligne verticale occupe la colonne centrale sur toutes les lignes
+  &__line {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      transform: translateX(-50%);
+      background: rgba($color-gold, 0.08);
+    }
+
+    @media (max-width: 900px) {
+      grid-column: 1;
+    }
+  }
+
+  &__line-fill {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, $color-gold, rgba($color-gold, 0.2));
+    transform-origin: top;
+    transform: scaleX(1) scaleY(0);
+  }
+
+  &__timeline-end {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+
+    @media (max-width: 900px) {
+      grid-column: 1;
+    }
+  }
+
+  &__end-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: $color-gold;
+    box-shadow: 0 0 16px rgba($color-gold, 0.5);
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  &__end-label {
+    font-family: $font-body;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-gold;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+
+  // ── Soft Skills ───────────────────────────────────
+  &__softskills {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// ── Experience Card ───────────────────────────────────
+// Chaque .exp-card est display:contents → ses enfants directs
+// participent directement au grid 3-colonnes du parent .exp__timeline
+.exp-card {
+  display: contents;
+
+  &__spacer {
+    // Cellule vide pour occuper la colonne opposée à la carte
+    display: block;
+  }
+
+  &__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1.75rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid $color-gold;
+    background: $color-bg;
+    display: flex; align-items: center; justify-content: center;
+    transform: scale(0);
+    z-index: 3;
+    flex-shrink: 0;
+    position: relative;
+
+    // Pulse ring
+    &::before {
+      content: '';
+      position: absolute;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba($color-gold, 0.2);
+      animation: pulse-ring 2.5s ease-out infinite;
+    }
+  }
+
+  &__dot-inner {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: $color-gold;
+  }
+
+  &__branch { display: none; }
+
+  // ── Responsive : carte gauche sur mobile ─────────────
+  &--left {
+    @media (max-width: 900px) {
+      .exp-card__spacer {
+        display: none;
+      }
+
+      .exp-card__connector {
+        grid-column: 1 !important;
+      }
+
+      .exp-card__body {
+        grid-column: 2 !important;
+      }
+    }
+  }
+
+  // ── Responsive : carte droite sur mobile ─────────────
+  &--right {
+    @media (max-width: 900px) {
+      .exp-card__spacer {
+        display: none;
+      }
+
+      .exp-card__connector {
+        grid-column: 1 !important;
+      }
+
+      .exp-card__body {
+        grid-column: 2 !important;
+      }
+    }
+  }
+
+  &__body {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+    align-self: start;
+
+    &:hover {
+      border-color: rgba($color-gold, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    svg {
+      width: 13px; height: 13px;
+      color: $color-gold;
+      flex-shrink: 0;
+    }
+  }
+
+  &__badge {
+    font-family: $font-body;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    white-space: nowrap;
+
+    &--tech {
+      background: rgba($color-gold, 0.1);
+      border: 1px solid rgba($color-gold, 0.25);
+      color: $color-gold;
+    }
+
+    &--terrain {
+      background: rgba(124, 163, 196, 0.1);
+      border: 1px solid rgba(124, 163, 196, 0.25);
+      color: #7ca3c4;
+    }
+  }
+
+  &__company {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  &__role {
+    font-family: $font-body;
+    font-size: 0.82rem;
+    color: $color-gold;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  &__client {
+    font-family: $font-body;
+    font-size: 0.7rem;
+    color: $color-text-muted;
+    font-style: italic;
+    margin: 0;
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  &__highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+// ── Exp Tag ───────────────────────────────────────────
+.exp-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  background: rgba($color-gold, 0.06);
+  border: 1px solid rgba($color-gold, 0.14);
+  border-radius: 100px;
+  font-family: $font-body;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: $color-gold;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($color-gold, 0.12);
+    border-color: rgba($color-gold, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &--alt {
+    background: rgba(124, 163, 196, 0.06);
+    border-color: rgba(124, 163, 196, 0.15);
+    color: #7ca3c4;
+
+    &:hover {
+      background: rgba(124, 163, 196, 0.12);
+      border-color: rgba(124, 163, 196, 0.35);
+    }
+  }
+}
+
+// ── Highlight Item ────────────────────────────────────
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+
+  svg {
+    width: 14px; height: 14px;
+    color: $color-gold;
+    flex-shrink: 0;
+    stroke-width: 2.5;
+  }
+
+  span {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    color: $color-text-muted;
+    line-height: 1.5;
+  }
+}
+
+// ── Soft Skills ───────────────────────────────────────
+.softskills {
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+.softskill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  opacity: 0;
+  cursor: default;
+
+  &:hover {
+    border-color: rgba($color-gold, 0.3);
+    background: rgba($color-gold, 0.04);
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    width: 16px; height: 16px;
+    color: $color-gold;
+    flex-shrink: 0;
+
+    svg { width: 100%; height: 100%; }
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: $color-text-muted;
+    white-space: nowrap;
+  }
+}
+
+// ── Pulse animation ───────────────────────────────────
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}

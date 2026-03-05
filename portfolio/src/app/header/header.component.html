@@ -1,0 +1,50 @@
+<header #headerEl class="header" [class.scrolled]="isScrolled">
+  <div class="header__inner">
+
+    <!-- Logo -->
+    <div #logoEl class="header__logo" (click)="scrollToSection('accueil')">
+      <span class="logo__initials">EA</span>
+      <div class="logo__text">
+        <span class="logo__name">Edouard Alluin</span>
+        <span class="logo__title">Business Developer IT</span>
+      </div>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav #navEl class="header__nav">
+      <ul class="nav__list">
+        <li
+          *ngFor="let item of navItems"
+          class="nav-item"
+          [class.active]="activeSection === item.id"
+          (click)="scrollToSection(item.id)"
+        >
+          <span class="nav-item__label">{{ item.label }}</span>
+          <span class="nav-item__underline"></span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Toggle -->
+    <button #menuToggle class="header__toggle" (click)="toggleMobileMenu()" [class.open]="isMobileMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div #mobileMenu class="mobile-menu" [class.visible]="isMobileMenuOpen">
+    <ul class="mobile-menu__list">
+      <li
+        *ngFor="let item of navItems"
+        class="mobile-nav-item"
+        [class.active]="activeSection === item.id"
+        (click)="scrollToSection(item.id)"
+      >
+        <span class="mobile-nav-item__number">{{ ('0' + (navItems.indexOf(item) + 1)).slice(-2) }}</span>
+        <span>{{ item.label }}</span>
+      </li>
+    </ul>
+  </div>
+</header>

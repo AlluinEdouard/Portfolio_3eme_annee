@@ -1,0 +1,77 @@
+@use 'variables' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --scrollbar-width: 6px;
+}
+
+html {
+  scroll-behavior: auto; // Let GSAP handle scrolling
+  font-size: 16px;
+}
+
+body {
+  background: $color-bg;
+  color: $color-text;
+  font-family: $font-body;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: $color-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($color-gold, 0.3);
+  border-radius: 3px;
+
+  &:hover {
+    background: rgba($color-gold, 0.5);
+  }
+}
+
+// Selection
+::selection {
+  background: rgba($color-gold, 0.2);
+  color: $color-gold;
+}
+
+// Focus
+:focus-visible {
+  outline: 1px solid $color-gold;
+  outline-offset: 2px;
+}
+
+// Remove default button styles
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+// Remove default link styles
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Smooth section transitions
+section {
+  position: relative;
+}

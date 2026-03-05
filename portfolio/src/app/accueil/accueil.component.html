@@ -1,0 +1,179 @@
+<section id="accueil" class="hero" #heroSection>
+
+  <!-- Particle canvas background -->
+  <canvas #canvas class="hero__canvas"></canvas>
+
+  <!-- Background decorative elements -->
+  <div class="hero__bg-deco">
+    <div class="bg-deco__circle bg-deco__circle--1"></div>
+    <div class="bg-deco__circle bg-deco__circle--2"></div>
+    <div class="bg-deco__grid"></div>
+  </div>
+
+  <div class="hero__container">
+
+    <!-- Left: Main content -->
+    <div class="hero__content">
+
+      <p class="hero__eyebrow">
+        <span class="eyebrow__line"></span>
+        E-CV Portfolio
+      </p>
+
+      <div class="hero__name">
+        <h1>
+          <span class="hero__name-line">Edouard</span>
+          <span class="hero__name-line hero__name-line--gold">Alluin</span>
+        </h1>
+      </div>
+
+      <div class="hero__separator"></div>
+
+      <p class="hero__subtitle">Business Developer IT</p>
+      <p class="hero__tagline">Profile technico-commercial</p>
+
+      <p class="hero__description">
+        Issu d'un parcours informatique et développement, je me réoriente vers le commerce
+        B2B avec ESCEN. J'apporte une forte culture tech, une vraie capacité d'apprentissage,
+        et une aisance à comprendre des solutions numériques <em>(SaaS, logiciels, data/IA)</em>.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero__cta-group">
+        <button class="btn btn--primary" (click)="scrollToSection('competences')">
+          <span>Voir mes compétences</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+        <button class="btn btn--outline" (click)="scrollToSection('experiences')">
+          Mon parcours
+        </button>
+      </div>
+
+      <!-- Contact chips -->
+      <div class="hero__contact">
+        <ng-container *ngFor="let contact of contactInfo">
+          <a
+            class="contact-chip"
+            [href]="contact.href || 'javascript:void(0)'"
+            [target]="contact.href && contact.href.startsWith('http') ? '_blank' : '_self'"
+            [rel]="contact.href && contact.href.startsWith('http') ? 'noopener noreferrer' : ''"
+          >
+            <!-- Phone -->
+            <svg *ngIf="contact.icon === 'phone'" class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.02z"/>
+            </svg>
+            <!-- Email -->
+            <svg *ngIf="contact.icon === 'email'" class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <!-- Location -->
+            <svg *ngIf="contact.icon === 'location'" class="chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <!-- Github -->
+            <svg *ngIf="contact.icon === 'github'" class="chip__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            <!-- LinkedIn -->
+            <svg *ngIf="contact.icon === 'linkedin'" class="chip__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span class="chip__label">{{ contact.value }}</span>
+          </a>
+        </ng-container>
+      </div>
+
+      <!-- Video CTA -->
+      <div class="hero__video-cta">
+        <button class="btn-video" (click)="openVideo()">
+          <span class="btn-video__play">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </span>
+          <span class="btn-video__text">
+            <span class="btn-video__label">Ma présentation vidéo</span>
+            <span class="btn-video__sub">Mon BUT en 180 secondes</span>
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Right: Stats & Badge -->
+    <div class="hero__right">
+
+      <!-- Profile photo -->
+      <div class="hero__photo-wrapper" #photoWrapper>
+        <div class="hero__photo-frame">
+          <div class="photo-frame__border"></div>
+          <div class="photo-frame__shimmer"></div>
+          <img
+            src="assets/photo_pro.jpeg"
+            alt="Edouard Alluin - Business Developer IT"
+            class="hero__photo"
+            #photoEl
+          />
+        </div>
+        <!-- Badge overlaid on photo -->
+        <div class="hero__badge">
+          <div class="badge__inner">
+            <span class="badge__year">2026</span>
+            <span class="badge__label">Disponible</span>
+            <span class="badge__sublabel">Alternance & Stage</span>
+            <div class="badge__dot"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Stats -->
+      <div class="hero__stats">
+        <div
+          *ngFor="let stat of stats; let i = index"
+          class="stat-item"
+          #statItem
+        >
+          <div class="stat-item__value">
+            <span [class]="'stat-value-' + i">{{ stat.value }}</span>
+            <span class="stat-item__suffix">{{ stat.suffix }}</span>
+          </div>
+          <p class="stat-item__label" [innerHTML]="stat.label.replace('\n', '<br>')"></p>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero__scroll-indicator">
+        <div class="scroll__line"></div>
+        <span class="scroll__text">scroll</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Video Modal -->
+<div class="video-modal" [class.open]="isVideoOpen" (click)="closeVideoOnBackdrop($event)">
+  <div class="video-modal__backdrop"></div>
+  <div class="video-modal__content" #videoModal>
+    <button class="video-modal__close" (click)="closeVideo()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="video-modal__player">
+      <iframe
+        *ngIf="isVideoOpen"
+        class="video-modal__video"
+        src="https://www.youtube.com/embed/uPHjvYO43QI?autoplay=1"
+        title="Ma présentation vidéo"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        (click)="$event.stopPropagation()"
+      ></iframe>
+    </div>
+  </div>
+</div>

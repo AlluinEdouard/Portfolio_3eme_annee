@@ -1,0 +1,529 @@
+@use 'variables' as *;
+
+.form {
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  background: $color-bg;
+
+  // ── Background ────────────────────────────────────
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+
+    &--1 {
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, rgba($color-gold, 0.05) 0%, transparent 70%);
+      top: -100px; left: -150px;
+    }
+    &--2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124, 163, 196, 0.05) 0%, transparent 70%);
+      bottom: 0; right: -100px;
+    }
+  }
+
+  &__bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba($color-gold, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($color-gold, 0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 30% 50%, black 20%, transparent 65%);
+  }
+
+  // ── Container ─────────────────────────────────────
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  // ── Header ────────────────────────────────────────
+  &__header {
+    max-width: 600px;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+    opacity: 0;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 800;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.5rem 0 0;
+    opacity: 0;
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0.75rem 0 0;
+    opacity: 0;
+  }
+
+  // ── Main grid ─────────────────────────────────────
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2.5rem;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // ── Diplômes col ──────────────────────────────────
+  &__diplomes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  // ── Aside col ─────────────────────────────────────
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}
+
+// ── Diplôme Card ──────────────────────────────────────
+.diplome-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 1.75rem;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  padding: 2rem 2.5rem 2rem 1.5rem;
+  overflow: hidden;
+  opacity: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    border-color: rgba($color-gold, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  // Carte active (formation en cours) : accent gold sur la bordure gauche
+  &--active {
+    border-left-color: rgba($color-gold, 0.5);
+    border-left-width: 2px;
+
+    .diplome-card__year-fill {
+      background: linear-gradient(to bottom, $color-gold, rgba($color-gold, 0.3));
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba($color-gold, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+  }
+
+  // ── Year column ────────────────────────────────────
+  &__year-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding-top: 0.25rem;
+  }
+
+  &__year-start,
+  &__year-end {
+    font-family: $font-display;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: $color-text-muted;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  &__year-end {
+    color: $color-gold;
+  }
+
+  &__year-bar {
+    flex: 1;
+    width: 2px;
+    background: rgba($color-gold, 0.1);
+    border-radius: 100px;
+    overflow: hidden;
+    min-height: 40px;
+  }
+
+  &__year-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba($color-gold, 0.5), rgba($color-gold, 0.1));
+    transform: scaleY(0);
+    transform-origin: top;
+    border-radius: 100px;
+  }
+
+  // ── Body ──────────────────────────────────────────
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__badge {
+    font-family: $font-body;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.65rem;
+    border-radius: 100px;
+
+    &--current {
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      color: #4ade80;
+    }
+
+    &--obtained {
+      background: rgba($color-gold, 0.08);
+      border: 1px solid rgba($color-gold, 0.22);
+      color: $color-gold;
+    }
+  }
+
+  &__type {
+    font-family: $font-body;
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  &__school {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-body;
+    font-size: 0.72rem;
+    color: $color-gold;
+    letter-spacing: 0.04em;
+    margin: 0;
+
+    svg {
+      width: 13px; height: 13px;
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid $color-border;
+  }
+
+  &__modules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 0.25rem;
+  }
+
+  // ── Deco number ───────────────────────────────────
+  &__deco {
+    position: absolute;
+    bottom: -1rem;
+    right: 1.5rem;
+    font-family: $font-display;
+    font-size: 6rem;
+    font-weight: 800;
+    color: rgba($color-gold, 0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+// ── Module Tag ────────────────────────────────────────
+.module-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  background: rgba($color-gold, 0.06);
+  border: 1px solid rgba($color-gold, 0.14);
+  border-radius: 100px;
+  font-family: $font-body;
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: $color-gold;
+  opacity: 0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($color-gold, 0.12);
+    border-color: rgba($color-gold, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &--alt {
+    background: rgba(124, 163, 196, 0.06);
+    border-color: rgba(124, 163, 196, 0.15);
+    color: #7ca3c4;
+
+    &:hover {
+      background: rgba(124, 163, 196, 0.12);
+      border-color: rgba(124, 163, 196, 0.35);
+    }
+  }
+}
+
+// ── Aside Card ────────────────────────────────────────
+.aside-card {
+  position: relative;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    border-color: rgba($color-gold, 0.2);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  // ESCEN card avec glow gold
+  &--escen {
+    border-color: rgba($color-gold, 0.2);
+
+    &:hover {
+      border-color: rgba($color-gold, 0.4);
+      box-shadow: 0 0 30px rgba($color-gold, 0.06);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba($color-gold, 0.08);
+    border: 1px solid rgba($color-gold, 0.15);
+    border-radius: 8px;
+    color: $color-text-muted;
+    flex-shrink: 0;
+
+    svg { width: 16px; height: 16px; }
+
+    &--gold {
+      background: rgba($color-gold, 0.12);
+      border-color: rgba($color-gold, 0.3);
+      color: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  // Glow orb for ESCEN card
+  &__glow {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($color-gold, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+// ── Langue Item ───────────────────────────────────────
+.langue-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    font-family: $font-body;
+    font-size: 0.78rem;
+    color: $color-text;
+    letter-spacing: 0.04em;
+  }
+
+  &__level {
+    font-family: $font-display;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-gold;
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.62rem;
+    color: $color-text-muted;
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+}
+
+.langue-bar {
+  height: 4px;
+  background: rgba($color-gold, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+
+  &__fill {
+    height: 100%;
+    border-radius: 100px;
+    transform: scaleX(0);
+    transform-origin: left;
+
+    &--b1 {
+      // B1 = ~50% du CECRL (A1→C2)
+      width: 50%;
+      background: linear-gradient(to right, $color-gold, rgba($color-gold, 0.5));
+    }
+
+    &--a2 {
+      // A2 = ~25%
+      width: 25%;
+      background: linear-gradient(to right, #7ca3c4, rgba(124, 163, 196, 0.4));
+    }
+  }
+}
+
+// ── ESCEN Info rows ───────────────────────────────────
+.escen-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+  }
+
+  &__value {
+    font-family: $font-body;
+    font-size: 0.78rem;
+    color: $color-text;
+    letter-spacing: 0.03em;
+  }
+}
+
+.escen-desc {
+  font-family: $font-body;
+  font-size: 0.72rem;
+  line-height: 1.75;
+  color: $color-text-muted;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid $color-border;
+}
+
+// ── Info rows (permis etc.) ───────────────────────────
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $font-body;
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  letter-spacing: 0.03em;
+
+  svg {
+    width: 14px; height: 14px;
+    color: $color-gold;
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+}

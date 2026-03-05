@@ -1,0 +1,135 @@
+<section id="atouts" class="atouts" #section>
+
+  <!-- Background deco -->
+  <div class="atouts__bg">
+    <div class="atouts__bg-orb atouts__bg-orb--1"></div>
+    <div class="atouts__bg-orb atouts__bg-orb--2"></div>
+    <div class="atouts__bg-orb atouts__bg-orb--3"></div>
+    <div class="atouts__bg-noise"></div>
+  </div>
+
+  <div class="atouts__container">
+
+    <!-- Header -->
+    <div class="atouts__header">
+      <p class="atouts__eyebrow">
+        <span class="eyebrow__line"></span>
+        05 — Atouts &amp; Intérêts
+      </p>
+      <h2 class="atouts__title">Ce qui me définit</h2>
+      <p class="atouts__subtitle">
+        Au-delà du code — les qualités humaines et les passions qui façonnent
+        mon rapport au travail et aux autres.
+      </p>
+    </div>
+
+    <!-- ── Atouts ── -->
+    <div class="atouts__section">
+
+      <div class="atouts__section-label">
+        <span class="section-label__line"></span>
+        <span class="section-label__text">Atouts</span>
+      </div>
+
+      <div class="atouts__grid">
+
+        <div class="atout-card" *ngFor="let atout of atouts; let i = index"
+          [style.--index]="i"
+          [style.--accent]="atout.color"
+          #atoutCard>
+
+          <!-- Icon ring -->
+          <div class="atout-card__ring">
+            <div class="atout-card__icon" [innerHTML]="atout.icon"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="atout-card__content">
+            <h3 class="atout-card__title">{{ atout.label }}</h3>
+            <p class="atout-card__desc">{{ atout.desc }}</p>
+          </div>
+
+          <!-- Hover glow -->
+          <div class="atout-card__glow"></div>
+
+          <!-- Corner deco -->
+          <div class="atout-card__corner"></div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Centres d'intérêt ── -->
+    <div class="interets__section">
+
+      <div class="atouts__section-label">
+        <span class="section-label__line"></span>
+        <span class="section-label__text">Centres d'intérêt</span>
+      </div>
+
+      <div class="interets__grid">
+
+        <div class="interet-card" *ngFor="let interet of interets; let i = index"
+          [style.--index]="i"
+          #interetCard>
+
+          <div class="interet-card__visual">
+            <div class="interet-card__icon" [innerHTML]="interet.icon"></div>
+            <div class="interet-card__bg-icon" [innerHTML]="interet.icon"></div>
+          </div>
+
+          <div class="interet-card__body">
+            <h4 class="interet-card__title">{{ interet.label }}</h4>
+            <p class="interet-card__desc">{{ interet.desc }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ── Footer / CTA final ── -->
+    <div class="atouts__footer" #footer>
+
+      <div class="footer-cta">
+        <div class="footer-cta__left">
+          <p class="footer-cta__eyebrow">Disponible dès maintenant</p>
+          <h3 class="footer-cta__title">Prêt pour l'alternance</h3>
+          <p class="footer-cta__desc">
+            Vous cherchez un profil alliant culture tech et appétence commerciale ?
+            Discutons de votre projet.
+          </p>
+        </div>
+
+        <div class="footer-cta__actions">
+          <a href="mailto:edouardalluin6@gmail.com" class="cta-btn cta-btn--primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Me contacter</span>
+          </a>
+          <a href="https://linkedin.com/in/edouard-alluin" target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn--outline">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Signature finale -->
+      <div class="footer-signature">
+        <span class="footer-signature__name">Edouard Alluin</span>
+        <span class="footer-signature__separator">—</span>
+        <span class="footer-signature__role">Business Developer IT</span>
+        <span class="footer-signature__year">2025</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>

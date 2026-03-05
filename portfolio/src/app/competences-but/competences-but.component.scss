@@ -1,0 +1,413 @@
+@use 'variables' as *;
+
+.cbut {
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  background: $color-bg;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+
+    &--1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba($color-gold, 0.04) 0%, transparent 70%);
+      top: 0; left: -200px;
+    }
+    &--2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,163,196, 0.05) 0%, transparent 70%);
+      bottom: 10%; right: -150px;
+    }
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  &__header {
+    max-width: 640px;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+    opacity: 0;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 800;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.5rem 0 0;
+    opacity: 0;
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0.75rem 0 0;
+    opacity: 0;
+  }
+
+  // Grid of competence cards
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Progress section
+  &__progress {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid $color-border;
+  }
+
+  &__progress-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__progress-bars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ── Competence Card ──────────────────────────────────────
+.cbut-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  // Glow accent top
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--comp-color), transparent);
+    opacity: 0.6;
+  }
+
+  &:hover {
+    border-color: rgba(var(--comp-rgb), 0.3);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(var(--comp-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  &__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__number {
+    font-family: $font-display;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: rgba(var(--comp-rgb), 0.12);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--comp-color);
+    border: 1px solid rgba(var(--comp-rgb), 0.25);
+    background: rgba(var(--comp-rgb), 0.08);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  &__sub {
+    font-family: $font-body;
+    font-size: 0.72rem;
+    color: var(--comp-color);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  &__projects {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  &__projects-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-body;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    margin: 0;
+
+    svg {
+      width: 13px; height: 13px;
+      color: var(--comp-color);
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ── Skills pills ──────────────────────────────────────────
+.cbut-skill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  background: rgba(var(--comp-rgb), 0.06);
+  border: 1px solid rgba(var(--comp-rgb), 0.15);
+  border-radius: 100px;
+  font-family: $font-body;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--comp-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(var(--comp-rgb), 0.12);
+    border-color: rgba(var(--comp-rgb), 0.35);
+    transform: translateY(-1px);
+  }
+}
+
+// ── Project item ──────────────────────────────────────────
+.cbut-project {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid $color-border;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    border-color: rgba(var(--comp-rgb), 0.2);
+    background: rgba(var(--comp-rgb), 0.03);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: $color-text;
+    line-height: 1.2;
+  }
+
+  &__github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: $font-body;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--comp-color);
+    text-decoration: none;
+    border: 1px solid rgba(var(--comp-rgb), 0.25);
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+
+    svg {
+      width: 11px; height: 11px;
+    }
+
+    &:hover {
+      background: rgba(var(--comp-rgb), 0.12);
+      border-color: rgba(var(--comp-rgb), 0.5);
+    }
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: $color-text-muted;
+    margin: 0;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  &__tag {
+    font-family: $font-body;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    color: $color-text-muted;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid $color-border;
+    padding: 0.15rem 0.55rem;
+    border-radius: 100px;
+  }
+}
+
+// ── Progress bars ─────────────────────────────────────────
+.cbut-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    font-family: $font-body;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: $color-text-muted;
+    text-transform: uppercase;
+  }
+
+  &__pct {
+    font-family: $font-body;
+    font-size: 0.62rem;
+    color: var(--comp-color);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__track {
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    width: 75%;
+    background: linear-gradient(90deg, var(--comp-color), rgba(var(--comp-rgb), 0.4));
+    border-radius: 100px;
+    animation: barFill 1.5s ease-out forwards;
+    transform-origin: left;
+  }
+}
+
+@keyframes barFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}

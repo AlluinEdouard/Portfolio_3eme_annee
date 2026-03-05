@@ -1,0 +1,51 @@
+// ============================================
+// VARIABLES - E-CV Edouard Alluin
+// Aesthetic: Dark Luxury / Tech
+// ============================================
+
+// Colors
+$color-bg:          #0a0a0c;
+$color-bg-card:     #111116;
+$color-bg-elevated: #16161d;
+
+$color-gold:        #b8995b;
+$color-gold-light:  #d4b97c;
+$color-gold-dark:   #8a7040;
+
+$color-text:        #e8e6e0;
+$color-text-muted:  #7a7870;
+$color-text-subtle: #3d3c38;
+
+$color-border:      rgba(#b8995b, 0.12);
+$color-border-hover: rgba(#b8995b, 0.3);
+
+// Typography
+$font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+$font-body:    'DM Mono', 'Courier New', monospace;
+
+// Spacing
+$spacing-xs:  0.25rem;
+$spacing-sm:  0.5rem;
+$spacing-md:  1rem;
+$spacing-lg:  2rem;
+$spacing-xl:  4rem;
+$spacing-2xl: 8rem;
+
+// Breakpoints
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1536px;
+
+// Transitions
+$transition-fast:   0.15s ease;
+$transition-normal: 0.3s ease;
+$transition-slow:   0.6s ease;
+
+// Z-index
+$z-base:    1;
+$z-overlay: 10;
+$z-modal:   100;
+$z-header:  1000;
+$z-toast:   2000;

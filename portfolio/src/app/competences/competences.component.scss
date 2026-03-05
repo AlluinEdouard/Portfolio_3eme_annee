@@ -1,0 +1,434 @@
+@use 'variables' as *;
+
+.comp {
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  background: $color-bg;
+
+  // ── Background ────────────────────────────────────
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+
+    &--1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba($color-gold, 0.05) 0%, transparent 70%);
+      top: 0; left: -150px;
+    }
+    &--2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124, 163, 196, 0.06) 0%, transparent 70%);
+      bottom: 0; right: -100px;
+    }
+  }
+
+  &__bg-lines {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba($color-gold, 0.02) 1px, transparent 1px);
+    background-size: 100% 80px;
+  }
+
+  // ── Container ─────────────────────────────────────
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  // ── Header ────────────────────────────────────────
+  &__header {
+    max-width: 600px;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gold;
+    opacity: 0;
+
+    .eyebrow__line {
+      display: block;
+      width: 40px; height: 1px;
+      background: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 800;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0.5rem 0 0;
+    opacity: 0;
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: $color-text-muted;
+    margin: 0.75rem 0 0;
+    opacity: 0;
+  }
+
+  // ── Main Grid ─────────────────────────────────────
+  &__grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // ── Sidebar ───────────────────────────────────────
+  &__sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @media (max-width: 900px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__deco-number {
+    position: absolute;
+    bottom: -2rem;
+    right: 0;
+    font-family: $font-display;
+    font-size: 8rem;
+    font-weight: 800;
+    color: rgba($color-gold, 0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+
+    @media (max-width: 900px) { display: none; }
+  }
+
+  // ── Panel ─────────────────────────────────────────
+  &__panel {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    opacity: 0;
+    min-height: 420px;
+  }
+
+  // ── Tech Bar ──────────────────────────────────────
+  &__tech-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// ── Category Tabs ─────────────────────────────────────
+.cat-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  text-align: left;
+  overflow: hidden;
+
+  &:hover {
+    border-color: rgba($color-gold, 0.3);
+    background: rgba($color-gold, 0.04);
+
+    .cat-tab__label { color: $color-text; }
+  }
+
+  &.active {
+    border-color: var(--cat-color);
+    background: rgba(255,255,255,0.03);
+
+    .cat-tab__label { color: var(--cat-color); }
+    .cat-tab__icon { color: var(--cat-color); }
+    .cat-tab__count {
+      background: var(--cat-color);
+      color: $color-bg;
+    }
+    .cat-tab__indicator {
+      transform: scaleY(1);
+    }
+  }
+
+  &__icon {
+    width: 20px; height: 20px;
+    color: $color-text-muted;
+    flex-shrink: 0;
+    transition: color 0.3s;
+
+    svg { width: 100%; height: 100%; }
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    transition: color 0.3s;
+    flex: 1;
+  }
+
+  &__count {
+    font-family: $font-display;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: rgba($color-gold, 0.1);
+    color: $color-gold;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  &__indicator {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--cat-color);
+    border-radius: 0 2px 2px 0;
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+}
+
+// ── Panel ─────────────────────────────────────────────
+.panel {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    transition: color 0.3s;
+
+    svg { width: 100%; height: 100%; }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+    line-height: 1;
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 0.68rem;
+    color: $color-text-muted;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0.25rem 0 0;
+  }
+
+  &__skills {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// ── Skill Row ─────────────────────────────────────────
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__name {
+    font-family: $font-body;
+    font-size: 0.82rem;
+    color: $color-text;
+    letter-spacing: 0.04em;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.62rem;
+    color: $color-text-muted;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__pct {
+    font-family: $font-display;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-gold;
+    min-width: 2.5rem;
+    text-align: right;
+  }
+}
+
+// ── Skill Bar ─────────────────────────────────────────
+.skill-bar {
+  position: relative;
+  height: 6px;
+  background: rgba($color-gold, 0.08);
+  border-radius: 100px;
+  overflow: visible;
+
+  &__fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    border-radius: 100px;
+    transform-origin: left;
+    transform: scaleX(0); // animated by GSAP
+    transition: background 0.4s ease;
+
+    // Glow effect
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: inherit;
+      box-shadow: 0 0 8px 2px currentColor;
+      opacity: 0.8;
+    }
+  }
+
+  &__mark {
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 12px;
+    background: rgba($color-gold, 0.15);
+    transform: translateX(-50%);
+  }
+}
+
+// ── Legend ────────────────────────────────────────────
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: $font-body;
+  font-size: 0.62rem;
+  color: $color-text-muted;
+  letter-spacing: 0.06em;
+}
+
+.legend-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: $color-gold;
+  opacity: 0.6;
+}
+
+// ── Tech Bar ──────────────────────────────────────────
+.tech-bar {
+  &__label {
+    font-family: $font-body;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+  }
+
+  &__scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  background: rgba($color-gold, 0.05);
+  border: 1px solid rgba($color-gold, 0.12);
+  border-radius: 100px;
+  font-family: $font-body;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: $color-text-muted;
+  transition: all 0.25s ease;
+  opacity: 0;
+  cursor: default;
+
+  &:hover {
+    background: rgba($color-gold, 0.1);
+    border-color: rgba($color-gold, 0.35);
+    color: $color-gold;
+    transform: translateY(-2px);
+  }
+}

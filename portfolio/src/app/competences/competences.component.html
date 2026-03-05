@@ -1,0 +1,108 @@
+<section id="competences" class="comp" #section>
+
+  <!-- Background deco -->
+  <div class="comp__bg">
+    <div class="comp__bg-orb comp__bg-orb--1"></div>
+    <div class="comp__bg-orb comp__bg-orb--2"></div>
+    <div class="comp__bg-lines"></div>
+  </div>
+
+  <div class="comp__container">
+
+    <!-- Header -->
+    <div class="comp__header">
+      <p class="comp__eyebrow">
+        <span class="eyebrow__line"></span>
+        02 — Compétences
+      </p>
+      <h2 class="comp__title">Développeur Full Stack & IA</h2>
+      <p class="comp__subtitle">
+        Développeur Full-Stack issu d'un BUT Informatique, maîtrisant aussi bien
+        le frontend que le backend et la data.
+      </p>
+    </div>
+
+    <!-- Main grid -->
+    <div class="comp__grid">
+
+      <!-- Left: Category tabs -->
+      <div class="comp__sidebar">
+        <button
+          *ngFor="let cat of categories"
+          class="cat-tab"
+          [class.active]="activeCategory === cat.id"
+          (click)="selectCategory(cat.id)"
+          [style.--cat-color]="cat.color"
+        >
+          <span class="cat-tab__icon" [innerHTML]="cat.icon"></span>
+          <span class="cat-tab__label">{{ cat.label }}</span>
+          <span class="cat-tab__count">{{ cat.skills.length }}</span>
+          <span class="cat-tab__indicator"></span>
+        </button>
+
+        <!-- Big number decoration -->
+        <div class="comp__deco-number">
+          {{ ('0' + (categories.indexOf(activeCategoryData) + 1)).slice(-2) }}
+        </div>
+      </div>
+
+      <!-- Right: Skills panel -->
+      <div class="comp__panel">
+
+        <!-- Panel header -->
+        <div class="panel__header">
+          <span class="panel__icon" [innerHTML]="activeCategoryData.icon" [style.color]="activeCategoryData.color"></span>
+          <div>
+            <h3 class="panel__title">{{ activeCategoryData.label }}</h3>
+            <p class="panel__desc">{{ activeSkills.length }} technologies maîtrisées</p>
+          </div>
+        </div>
+
+        <!-- Skill bars -->
+        <div class="panel__skills">
+          <div
+            *ngFor="let skill of activeSkills; let i = index"
+            class="skill-row"
+          >
+            <div class="skill-row__top">
+              <span class="skill-row__name">{{ skill.name }}</span>
+              <div class="skill-row__meta">
+                <span class="skill-row__label">{{ getLevelLabel(skill.level) }}</span>
+                <span class="skill-row__pct">{{ skill.level }}%</span>
+              </div>
+            </div>
+            <div class="skill-bar">
+              <div
+                class="skill-bar__fill"
+                [style.width.%]="skill.level"
+                [style.background]="activeCategoryData.color"
+              ></div>
+              <!-- Segments markers -->
+              <span class="skill-bar__mark" style="left: 25%"></span>
+              <span class="skill-bar__mark" style="left: 50%"></span>
+              <span class="skill-bar__mark" style="left: 75%"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel footer legend -->
+        <div class="panel__legend">
+          <span class="legend-item"><span class="legend-dot"></span>Débutant (0–55%)</span>
+          <span class="legend-item"><span class="legend-dot"></span>Intermédiaire (55–70%)</span>
+          <span class="legend-item"><span class="legend-dot"></span>Avancé (70–85%)</span>
+          <span class="legend-item"><span class="legend-dot"></span>Expert (85%+)</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tech horizontal scroll bar -->
+    <div class="comp__tech-bar">
+      <p class="tech-bar__label">Toutes les technologies</p>
+      <div class="tech-bar__scroll">
+        <span *ngFor="let tech of allTechs" class="tech-tag">{{ tech }}</span>
+      </div>
+    </div>
+
+  </div>
+</section>
